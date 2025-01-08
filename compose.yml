@@ -10,6 +10,6 @@ services:
         BUILD_COMMIT:
         DPKG_ARCHITECTURE: amd64
     volumes:
-      - ./dest:/dest
-    stdin_open: true
-    tty: true
+      - ./dest:/makedeb/dest
+    environment:
+      DESTDIR: /makedeb/dest

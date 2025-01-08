@@ -10,7 +10,7 @@ ARG DPKG_ARCHITECTURE
 COPY . /makedeb
 WORKDIR /makedeb/PKGBUILD
 
-RUN apt-get update && apt-get install --no-install-recommends -y git jq curl ca-certificates
+RUN apt-get update && apt-get install --no-install-recommends -y git jq curl ca-certificates libapt-pkg-dev asciidoctor
 
 RUN touch /makedeb/PKGBUILD
 RUN TARGET=${TARGET} RELEASE=${RELEASE} ./pkgbuild.sh > PKGBUILD
@@ -26,6 +26,4 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash 
 WORKDIR /makedeb
 RUN VERSION=${pkgver}-${pkgrel} RELEASE=${RELEASE} TARGET=${TARGET} BUILD_COMMIT=$(git rev-parse HEAD) just prepare
 RUN DPKG_ARCHITECTURE=${DPKG_ARCHITECTURE} just build
-RUN DESTDIR=/dest just package
-
-CMD [ "/bin/bash" ]
+CMD [ "just", "package" ]

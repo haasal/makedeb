@@ -1,0 +1,15 @@
+services:
+  makedeb-build:
+    build:
+      context: .
+      args:
+        RELEASE: alpha # Change to current branch
+        TARGET: apt # Optionally: mpr
+        VERSION:
+        FILESYSTEM_PREFIX:
+        BUILD_COMMIT:
+        DPKG_ARCHITECTURE: amd64
+    volumes:
+      - ./dest:/dest
+    stdin_open: true
+    tty: true
